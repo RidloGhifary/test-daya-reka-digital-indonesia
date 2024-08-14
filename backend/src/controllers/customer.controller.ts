@@ -26,12 +26,32 @@ export const getSpecificUser = async (req: Request, res: Response) => {
       if (error) throw error;
 
       if (Array.isArray(results) && results.length > 0) {
+        if (results[0].is_deleted) {
+          return res
+            .status(404)
+            .json({ success: false, message: "Customer already deleted" });
+        }
+
         res
           .status(200)
           .json({ success: true, message: "Success", data: results[0] });
       } else {
         res.status(404).json({ success: false, message: "Customer not found" });
       }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Something went wrong" });
+  }
+};
+
+export const getAllUsersDeleted = async (req: Request, res: Response) => {
+  try {
+    const sql = `SELECT * FROM Customer WHERE is_deleted IS NOT NULL`;
+    connection.query(sql, (error, results) => {
+      if (error) throw error;
+      res
+        .status(200)
+        .json({ success: true, message: "Success", data: results });
     });
   } catch (error) {
     res.status(500).json({ success: false, message: "Something went wrong" });
