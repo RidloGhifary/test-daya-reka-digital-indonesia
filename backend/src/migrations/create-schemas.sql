@@ -22,7 +22,7 @@ CREATE TABLE Product (
     price DECIMAL(10, 2) NOT NULL,
     stock INT NOT NULL,
     count_bought INT DEFAULT 0,
-    category ENUM("beverages","appetizer","main_course","dessert") NOT NULL,
+    category ENUM("beverage","appetizer","main_course","dessert") NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -54,28 +54,26 @@ INSERT INTO Customer (firstname, lastname, phone_number, address, is_deleted, le
 INSERT INTO Product (name, price, stock, count_bought, category) VALUES
 ('Nasi Goreng', 25000, 50, 120, 'main_course'),
 ('Sate Ayam', 30000, 30, 90, 'main_course'),
-('Es Teh Manis', 5000, 100, 200, 'beverages'),
+('Es Teh Manis', 5000, 100, 200, 'beverage'),
 ('Mie Ayam', 20000, 40, 80, 'main_course'),
 ('Bakso', 22000, 60, 100, 'main_course'),
-('Es Jeruk', 6000, 90, 150, 'beverages'),
+('Es Jeruk', 6000, 90, 150, 'beverage'),
 ('Rendang', 35000, 20, 50, 'main_course'),
 ('Klepon', 10000, 70, 130, 'dessert'),
 ('Gado-Gado', 18000, 35, 75, 'appetizer'),
 ('Cendol', 8000, 80, 110, 'dessert');
 
 INSERT INTO Transaction (customer_id, product_id, price, quantity) VALUES
-(1, 11, 25000, 2),
-(2, 13, 5000, 3),
-(3, 14, 20000, 1),
-(4, 17, 35000, 1),
-(5, 12, 30000, 2),
-(6, 19, 18000, 3),
-(7, 16, 6000, 1),
-(8, 18, 10000, 2),
-(9, 15, 22000, 1),
-(10, 11, 8000, 2);
-
-
+(1, 1, 25000, 2),
+(2, 3, 5000, 3),
+(3, 4, 20000, 1),
+(4, 7, 35000, 1),
+(5, 2, 30000, 2),
+(6, 9, 18000, 3),
+(7, 6, 6000, 1),
+(8, 8, 10000, 2),
+(9, 5, 22000, 1),
+(10, 1, 8000, 2);
 
 
 
