@@ -18,7 +18,7 @@ mysqlConnection.getConnection((error, connection) => {
 });
 
 app.use("/api/products", productRouter);
-app.use("/api/users", userRouter);
+app.use("/api/customers", userRouter);
 app.use("/api/transactions", transactionRouter);
 
 app.listen(port, () => {

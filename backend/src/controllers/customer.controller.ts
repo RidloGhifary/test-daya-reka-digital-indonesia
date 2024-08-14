@@ -58,6 +58,23 @@ export const getAllUsersDeleted = async (req: Request, res: Response) => {
   }
 };
 
+export const searchUserByName = async (req: Request, res: Response) => {
+  try {
+    const { name } = req.query;
+    const sql = `SELECT * FROM Customer WHERE firstname LIKE ? OR lastname LIKE ? AND is_deleted IS NULL`;
+    const values = [`%${name}%`, `%${name}%`];
+
+    connection.query(sql, values, (error, results) => {
+      if (error) throw error;
+      res
+        .status(200)
+        .json({ success: true, message: "Success", data: results });
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Something went wrong" });
+  }
+};
+
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { firstname, lastname, phone_number, address, level } = req.body;
