@@ -16,16 +16,52 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
+export const getSpecificUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const sql = `SELECT * FROM Customer WHERE id = ? LIMIT 1`;
+    const values = [id];
+
+    connection.query(sql, values, (error, results: any) => {
+      if (error) throw error;
+
+      if (Array.isArray(results) && results.length > 0) {
+        res
+          .status(200)
+          .json({ success: true, message: "Success", data: results[0] });
+      } else {
+        res.status(404).json({ success: false, message: "Customer not found" });
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Something went wrong" });
+  }
+};
+
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { firstname, lastname, phone_number, address, level } = req.body;
 
-    const sql = `INSERT INTO Customer (firstname, lastname, phone_number, address, level) VALUES (?, ?, ?, ?, ?)`;
-    const values = [firstname, lastname, phone_number, address, level];
+    const sql = `SELECT * FROM Customer WHERE firstname = ? AND lastname = ? LIMIT 1`;
+    const values = [firstname, lastname];
 
-    connection.query(sql, values, (error) => {
+    connection.query(sql, values, (error, results: any) => {
       if (error) throw error;
-      res.status(201).json({ success: true, message: "Success created" });
+
+      if (Array.isArray(results) && results.length > 0) {
+        return res
+          .status(409)
+          .json({ success: false, message: "Customer already exists" });
+      } else {
+        const sql = `INSERT INTO Customer (firstname, lastname, phone_number, address, level) VALUES (?, ?, ?, ?, ?)`;
+        const values = [firstname, lastname, phone_number, address, level];
+
+        connection.query(sql, values, (error) => {
+          if (error) throw error;
+
+          res.status(201).json({ success: true, message: "Success created" });
+        });
+      }
     });
   } catch (error) {
     res.status(500).json({ success: false, message: "Something went wrong" });
