@@ -12,7 +12,6 @@ import EmptyContent from "@/components/EmptyContent";
 
 export default function CustomerContent() {
   const { transactions, fetchTransactions } = useTransactionsStore();
-  console.log("🚀 ~ CustomerContent ~ transactions:", transactions);
 
   useEffect(() => {
     fetchTransactions();

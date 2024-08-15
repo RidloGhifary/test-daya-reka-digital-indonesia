@@ -28,7 +28,10 @@ export const useTransactionsStore = create<TransactionsState>((set) => ({
   fetchTransactions: async (order = "") => {
     try {
       const { data } = await axios.get(`${SERVER_URL}/transactions?${order}`);
-      set({ transactions: data, order });
+      set((state) => ({
+        transactions: data,
+        order,
+      }));
     } catch (error) {
       console.error("Failed to fetch transactions:", error);
     }

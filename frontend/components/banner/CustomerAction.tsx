@@ -6,9 +6,22 @@ import { LuRefreshCcw } from "react-icons/lu";
 import { FiPlus, FiSearch } from "react-icons/fi";
 import { CiFilter } from "react-icons/ci";
 import Button from "../ui/Button";
+import { toast } from "react-hot-toast";
+import { useTransactionsStore } from "@/hooks/useTransactionsStore";
 
 export default function CustomerBannerAction() {
+  const { fetchTransactions, setOrder } = useTransactionsStore();
   const router = useRouter();
+
+  const handleResetOrder = async () => {
+    try {
+      setOrder("");
+      await fetchTransactions();
+      router.refresh();
+    } catch (error) {
+      toast.error("Ups, Something went wrong!");
+    }
+  };
 
   return (
     <div className="w-full flex items-center justify-start gap-5 overflow-x-auto">
@@ -33,7 +46,9 @@ export default function CustomerBannerAction() {
         <span>Filter</span>
       </Button>
 
-      <Button className="flex items-center gap-3 text-white bg-white/30 w-fit text-sm">
+      <Button
+        onClick={handleResetOrder}
+        className="flex items-center gap-3 text-white bg-white/30 w-fit text-sm">
         <LuRefreshCcw className="w-5 h-5" />
         <span>Refresh</span>
       </Button>

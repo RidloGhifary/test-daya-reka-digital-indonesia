@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
 
+import { Suspense } from "react";
 import Sidebar from "@/components/Sidebar";
 import ToasterProvider from "@/providers/ToasterProvider";
 
@@ -20,8 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <ToasterProvider />
-        <Sidebar>{children}</Sidebar>
+        <Suspense>
+          <ToasterProvider />
+          <Sidebar>{children}</Sidebar>
+        </Suspense>
       </body>
     </html>
   );
