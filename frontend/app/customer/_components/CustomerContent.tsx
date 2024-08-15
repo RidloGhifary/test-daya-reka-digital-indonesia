@@ -5,110 +5,14 @@ import Banner from "@/components/banner/Banner";
 import CustomerBannerAction from "@/components/banner/CustomerAction";
 import RightContentSide from "@/components/RightContentSide";
 import CustomerTable from "@/components/tables/CustomerTable";
-import { TransactionTable } from "@/types";
 import AddCustomerForm from "@/components/form/AddCustomerForm";
 import { useEffect } from "react";
 import { useTransactionsStore } from "@/hooks/useTransactionsStore";
-
-// const datas: TransactionTable[] = [
-//   {
-//     customer: "Ridlo achmad ghifary",
-//     level: "juragan",
-//     product: "Nasi Goreng",
-//     total_transaction: 25000,
-//     total_quantity: 2,
-//     last_transaction_date: new Date(),
-//   },
-//   {
-//     customer: "Agus fatih",
-//     level: "konglomerat",
-//     product: "Mie ayam",
-//     total_transaction: 25000,
-//     total_quantity: 2,
-//     last_transaction_date: new Date(),
-//   },
-//   {
-//     customer: "Ridlo achmad ghifary",
-//     level: "juragan",
-//     product: "Nasi Goreng",
-//     total_transaction: 25000,
-//     total_quantity: 2,
-//     last_transaction_date: new Date(),
-//   },
-//   {
-//     customer: "Agus fatih",
-//     level: "konglomerat",
-//     product: "Mie ayam",
-//     total_transaction: 25000,
-//     total_quantity: 2,
-//     last_transaction_date: new Date(),
-//   },
-//   {
-//     customer: "Ridlo achmad ghifary",
-//     level: "juragan",
-//     product: "Nasi Goreng",
-//     total_transaction: 25000,
-//     total_quantity: 2,
-//     last_transaction_date: new Date(),
-//   },
-//   {
-//     customer: "Agus fatih",
-//     level: "konglomerat",
-//     product: "Mie ayam",
-//     total_transaction: 25000,
-//     total_quantity: 2,
-//     last_transaction_date: new Date(),
-//   },
-//   {
-//     customer: "Ridlo achmad ghifary",
-//     level: "juragan",
-//     product: "Nasi Goreng",
-//     total_transaction: 25000,
-//     total_quantity: 2,
-//     last_transaction_date: new Date(),
-//   },
-//   {
-//     customer: "Agus fatih",
-//     level: "konglomerat",
-//     product: "Mie ayam",
-//     total_transaction: 25000,
-//     total_quantity: 2,
-//     last_transaction_date: new Date(),
-//   },
-//   {
-//     customer: "Ridlo achmad ghifary",
-//     level: "juragan",
-//     product: "Nasi Goreng",
-//     total_transaction: 25000,
-//     total_quantity: 2,
-//     last_transaction_date: new Date(),
-//   },
-//   {
-//     customer: "Agus fatih",
-//     level: "konglomerat",
-//     product: "Mie ayam",
-//     total_transaction: 25000,
-//     total_quantity: 2,
-//     last_transaction_date: new Date(),
-//   },
-// ];
-
-// interface CustomerContentProps {
-//   transactions: {
-//     success: boolean;
-//     message: string;
-//     data: TransactionTable[];
-//     pagination: {
-//       currentPage: number;
-//       totalPages: number;
-//       hasNextPage: boolean;
-//     };
-//   };
-// }
+import EmptyContent from "@/components/EmptyContent";
 
 export default function CustomerContent() {
   const { transactions, fetchTransactions } = useTransactionsStore();
-  console.log("🚀 ~ CustomerContent ~ transactions:", !transactions);
+  console.log("🚀 ~ CustomerContent ~ transactions:", transactions);
 
   useEffect(() => {
     fetchTransactions();
@@ -139,11 +43,11 @@ export default function CustomerContent() {
             <AddCustomerForm />
           </>
         ) : !transactions ? (
-          <p>Loading...</p>
+          <EmptyContent />
         ) : (
           <CustomerTable
-            datas={transactions && transactions.data}
-            pagination={transactions && transactions.pagination}
+            datas={transactions && transactions?.data}
+            pagination={transactions && transactions?.pagination}
           />
         )}
       </div>

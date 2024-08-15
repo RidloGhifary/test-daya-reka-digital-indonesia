@@ -1,6 +1,5 @@
 "use client";
 
-import axios from "axios";
 import { tableHead } from "@/constants";
 import { TransactionTable } from "@/types";
 import { PiCaretUpDown } from "react-icons/pi";
@@ -12,9 +11,10 @@ import convertRupiah from "@/utils/formatRupiah";
 import { useRouter } from "next/navigation";
 import { useTransactionsStore } from "@/hooks/useTransactionsStore";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 interface CustomerTableProps {
-  datas: TransactionTable[];
+  datas: TransactionTable[] | [];
   pagination: {
     currentPage: number;
     totalPages: number;
@@ -44,7 +44,7 @@ export default function CustomerTable({
       await fetchTransactions(order);
       router.refresh();
     } catch (error) {
-      console.log(error);
+      toast.error("Ups, Something went wrong!");
     }
   };
 
@@ -60,7 +60,7 @@ export default function CustomerTable({
       await fetchTransactions(order);
       router.refresh();
     } catch (error) {
-      console.log(error);
+      toast.error("Ups, Something went wrong!");
     }
   };
 
@@ -75,7 +75,7 @@ export default function CustomerTable({
         return;
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Ups, Something went wrong!");
     }
   };
 
@@ -90,7 +90,7 @@ export default function CustomerTable({
         return;
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Ups, Something went wrong!");
     }
   };
 

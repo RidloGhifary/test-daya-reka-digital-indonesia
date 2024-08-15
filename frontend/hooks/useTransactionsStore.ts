@@ -1,15 +1,20 @@
 import { create } from "zustand";
 import axios from "axios";
+import { TransactionTable } from "@/types";
 
 interface Transaction {
-  // Define the shape of your transaction object here
-  id: string;
-  amount: number;
-  // Add other fields as necessary
+  success: boolean;
+  message: string;
+  data: TransactionTable[] | [];
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    hasNextPage: boolean;
+  };
 }
 
 interface TransactionsState {
-  transactions: any;
+  transactions: Transaction | null;
   order: string;
   fetchTransactions: (order?: string) => Promise<void>;
   setOrder: (order: string) => void;
@@ -18,7 +23,7 @@ interface TransactionsState {
 const SERVER_URL = process.env.SERVER_URL || "http://localhost:3001/api";
 
 export const useTransactionsStore = create<TransactionsState>((set) => ({
-  transactions: [],
+  transactions: null,
   order: "",
   fetchTransactions: async (order = "") => {
     try {
