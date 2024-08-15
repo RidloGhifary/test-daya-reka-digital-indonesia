@@ -5,7 +5,7 @@ const connection = mysql.createPool({
   host: "localhost",
   user: "root",
   password: process.env.DATABASE_PASSWORD,
-  database: "test_daya_reka_digital",
+  database: process.env.DATABASE_NAME,
 });
 
 const products = [
