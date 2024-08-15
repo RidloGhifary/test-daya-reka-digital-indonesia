@@ -7,7 +7,7 @@ import userRouter from "./routers/customer.router";
 import transactionRouter from "./routers/transaction.router";
 
 const app: Application = express();
-const port: number = Number(process.env.PORT || 3000);
+const port: number = Number(process.env.PORT || 3001);
 
 app.use(express.json());
 app.use(cors());

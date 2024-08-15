@@ -11,9 +11,17 @@ import convertRupiah from "@/utils/formatRupiah";
 
 interface CustomerTableProps {
   datas: TransactionTable[];
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    hasNextPage: boolean;
+  };
 }
 
-export default function CustomerTable({ datas }: CustomerTableProps) {
+export default function CustomerTable({
+  datas,
+  pagination,
+}: CustomerTableProps) {
   return (
     <div className="relative space-y-8 overflow-x-auto">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -78,9 +86,15 @@ export default function CustomerTable({ datas }: CustomerTableProps) {
       <div className="p-4 flex justify-between items-center w-full">
         <p className="text-sm text-slate-700">Showing 10 data customers</p>
         <div className="flex items-center gap-4 text-sm">
-          <Button className="bg-slate-700/10 text-slate-700">Back</Button>
-          <span className="text-slate-700">1</span>
-          <Button className="bg-slate-700/10 text-slate-700">Next</Button>
+          {pagination.currentPage !== 1 && (
+            <Button className="bg-slate-700/10 text-slate-700">Back</Button>
+          )}
+          <span className="text-slate-700">
+            {pagination.currentPage} - {pagination.totalPages} pages
+          </span>
+          {pagination.hasNextPage && (
+            <Button className="bg-slate-700/10 text-slate-700">Next</Button>
+          )}
         </div>
       </div>
     </div>

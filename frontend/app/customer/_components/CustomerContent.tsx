@@ -8,90 +8,105 @@ import CustomerTable from "@/components/tables/CustomerTable";
 import { TransactionTable } from "@/types";
 import AddCustomerForm from "@/components/form/AddCustomerForm";
 
-const datas: TransactionTable[] = [
-  {
-    customer: "Ridlo achmad ghifary",
-    level: "juragan",
-    product: "Nasi Goreng",
-    total_transaction: 25000,
-    total_quantity: 2,
-    last_transaction_date: new Date(),
-  },
-  {
-    customer: "Agus fatih",
-    level: "konglomerat",
-    product: "Mie ayam",
-    total_transaction: 25000,
-    total_quantity: 2,
-    last_transaction_date: new Date(),
-  },
-  {
-    customer: "Ridlo achmad ghifary",
-    level: "juragan",
-    product: "Nasi Goreng",
-    total_transaction: 25000,
-    total_quantity: 2,
-    last_transaction_date: new Date(),
-  },
-  {
-    customer: "Agus fatih",
-    level: "konglomerat",
-    product: "Mie ayam",
-    total_transaction: 25000,
-    total_quantity: 2,
-    last_transaction_date: new Date(),
-  },
-  {
-    customer: "Ridlo achmad ghifary",
-    level: "juragan",
-    product: "Nasi Goreng",
-    total_transaction: 25000,
-    total_quantity: 2,
-    last_transaction_date: new Date(),
-  },
-  {
-    customer: "Agus fatih",
-    level: "konglomerat",
-    product: "Mie ayam",
-    total_transaction: 25000,
-    total_quantity: 2,
-    last_transaction_date: new Date(),
-  },
-  {
-    customer: "Ridlo achmad ghifary",
-    level: "juragan",
-    product: "Nasi Goreng",
-    total_transaction: 25000,
-    total_quantity: 2,
-    last_transaction_date: new Date(),
-  },
-  {
-    customer: "Agus fatih",
-    level: "konglomerat",
-    product: "Mie ayam",
-    total_transaction: 25000,
-    total_quantity: 2,
-    last_transaction_date: new Date(),
-  },
-  {
-    customer: "Ridlo achmad ghifary",
-    level: "juragan",
-    product: "Nasi Goreng",
-    total_transaction: 25000,
-    total_quantity: 2,
-    last_transaction_date: new Date(),
-  },
-  {
-    customer: "Agus fatih",
-    level: "konglomerat",
-    product: "Mie ayam",
-    total_transaction: 25000,
-    total_quantity: 2,
-    last_transaction_date: new Date(),
-  },
-];
+// const datas: TransactionTable[] = [
+//   {
+//     customer: "Ridlo achmad ghifary",
+//     level: "juragan",
+//     product: "Nasi Goreng",
+//     total_transaction: 25000,
+//     total_quantity: 2,
+//     last_transaction_date: new Date(),
+//   },
+//   {
+//     customer: "Agus fatih",
+//     level: "konglomerat",
+//     product: "Mie ayam",
+//     total_transaction: 25000,
+//     total_quantity: 2,
+//     last_transaction_date: new Date(),
+//   },
+//   {
+//     customer: "Ridlo achmad ghifary",
+//     level: "juragan",
+//     product: "Nasi Goreng",
+//     total_transaction: 25000,
+//     total_quantity: 2,
+//     last_transaction_date: new Date(),
+//   },
+//   {
+//     customer: "Agus fatih",
+//     level: "konglomerat",
+//     product: "Mie ayam",
+//     total_transaction: 25000,
+//     total_quantity: 2,
+//     last_transaction_date: new Date(),
+//   },
+//   {
+//     customer: "Ridlo achmad ghifary",
+//     level: "juragan",
+//     product: "Nasi Goreng",
+//     total_transaction: 25000,
+//     total_quantity: 2,
+//     last_transaction_date: new Date(),
+//   },
+//   {
+//     customer: "Agus fatih",
+//     level: "konglomerat",
+//     product: "Mie ayam",
+//     total_transaction: 25000,
+//     total_quantity: 2,
+//     last_transaction_date: new Date(),
+//   },
+//   {
+//     customer: "Ridlo achmad ghifary",
+//     level: "juragan",
+//     product: "Nasi Goreng",
+//     total_transaction: 25000,
+//     total_quantity: 2,
+//     last_transaction_date: new Date(),
+//   },
+//   {
+//     customer: "Agus fatih",
+//     level: "konglomerat",
+//     product: "Mie ayam",
+//     total_transaction: 25000,
+//     total_quantity: 2,
+//     last_transaction_date: new Date(),
+//   },
+//   {
+//     customer: "Ridlo achmad ghifary",
+//     level: "juragan",
+//     product: "Nasi Goreng",
+//     total_transaction: 25000,
+//     total_quantity: 2,
+//     last_transaction_date: new Date(),
+//   },
+//   {
+//     customer: "Agus fatih",
+//     level: "konglomerat",
+//     product: "Mie ayam",
+//     total_transaction: 25000,
+//     total_quantity: 2,
+//     last_transaction_date: new Date(),
+//   },
+// ];
 
-export default function CustomerContent() {
+interface CustomerContentProps {
+  transactions: {
+    success: boolean;
+    message: string;
+    data: TransactionTable[];
+    pagination: {
+      currentPage: number;
+      totalPages: number;
+      hasNextPage: boolean;
+    };
+  };
+}
+
+export default function CustomerContent({
+  transactions,
+}: CustomerContentProps) {
   const params = useSearchParams();
   const action = params?.get("action");
 
@@ -117,7 +132,10 @@ export default function CustomerContent() {
             <AddCustomerForm />
           </>
         ) : (
-          <CustomerTable datas={datas} />
+          <CustomerTable
+            datas={transactions.data}
+            pagination={transactions.pagination}
+          />
         )}
       </div>
 
