@@ -109,7 +109,7 @@ export default function Sidebar({ children }: SidebarProps) {
         </div>
       </div>
 
-      <main className="p-5">{children}</main>
+      <main className="p-5 w-full">{children}</main>
     </div>
   );
 }
