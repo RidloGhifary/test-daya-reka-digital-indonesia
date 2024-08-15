@@ -32,6 +32,7 @@ export interface Customer {
 }
 
 export interface TransactionTable {
+  id: number;
   customer: string;
   product: string;
   level: "warga" | "juragan" | "sultan" | "konglomerat";

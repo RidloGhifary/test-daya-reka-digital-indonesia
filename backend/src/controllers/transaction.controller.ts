@@ -22,6 +22,7 @@ export const getAllTransactions = async (req: Request, res: Response) => {
     // TODO: Get the data
     const dataSql = `
       SELECT 
+        c.id AS id,
         CONCAT(c.firstname, ' ', c.lastname) AS customer,
         p.name AS product,
         c.level,

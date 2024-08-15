@@ -5,6 +5,7 @@ import "./globals.css";
 import { Suspense } from "react";
 import Sidebar from "@/components/Sidebar";
 import ToasterProvider from "@/providers/ToasterProvider";
+import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
 
 const font = Nunito({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={font.className}>
         <Suspense>
           <ToasterProvider />
+          <ConfirmDeleteModal />
           <Sidebar>{children}</Sidebar>
         </Suspense>
       </body>

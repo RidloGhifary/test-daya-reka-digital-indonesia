@@ -12,6 +12,7 @@ import { useTransactionsStore } from "@/hooks/useTransactionsStore";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import EmptyContent from "../EmptyContent";
+import useConfirmDeleteModal from "@/hooks/useConfirmDeleteModal";
 
 interface CustomerTableProps {
   datas: TransactionTable[] | [];
@@ -23,6 +24,7 @@ interface CustomerTableProps {
 }
 
 export default function CustomerTable() {
+  const confirmDeleteModal = useConfirmDeleteModal();
   const { fetchTransactions, setOrder, transactions } = useTransactionsStore();
 
   const [transactionOrder, setTransactionOrder] = useState<string>("desc");
@@ -140,14 +142,24 @@ export default function CustomerTable() {
                     {convertRupiah(data.total_transaction)}
                   </td>
                   <td className="p-4 truncate flex items-center justify-start gap-1">
-                    <Button className="bg-slate-500/10 text-slate-500 p-2 w-fit flex items-center gap-2">
+                    <Button
+                      onClick={() =>
+                        toast.error("This feature is not available")
+                      }
+                      className="bg-slate-500/10 text-slate-500 p-2 w-fit flex items-center gap-2">
                       <MdPersonSearch className="w-5 h-5" />
                       <span>Detail</span>
                     </Button>
-                    <Button className="bg-green-500/10 text-green-500 p-2 w-fit">
+                    <Button
+                      onClick={() =>
+                        toast.error("This feature is not available")
+                      }
+                      className="bg-green-500/10 text-green-500 p-2 w-fit">
                       <RiEdit2Fill className="w-4 h-4" />
                     </Button>
-                    <Button className="bg-rose-500/10 text-rose-500 p-2 w-fit">
+                    <Button
+                      onClick={() => confirmDeleteModal.onOpen(data.id)}
+                      className="bg-rose-500/10 text-rose-500 p-2 w-fit">
                       <MdDelete className="w-4 h-4" />
                     </Button>
                   </td>
