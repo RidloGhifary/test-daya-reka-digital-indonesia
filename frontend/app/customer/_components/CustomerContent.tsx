@@ -7,6 +7,8 @@ import RightContentSide from "@/components/RightContentSide";
 import CustomerTable from "@/components/tables/CustomerTable";
 import { TransactionTable } from "@/types";
 import AddCustomerForm from "@/components/form/AddCustomerForm";
+import { useEffect } from "react";
+import { useTransactionsStore } from "@/hooks/useTransactionsStore";
 
 // const datas: TransactionTable[] = [
 //   {
@@ -91,22 +93,27 @@ import AddCustomerForm from "@/components/form/AddCustomerForm";
 //   },
 // ];
 
-interface CustomerContentProps {
-  transactions: {
-    success: boolean;
-    message: string;
-    data: TransactionTable[];
-    pagination: {
-      currentPage: number;
-      totalPages: number;
-      hasNextPage: boolean;
-    };
-  };
-}
+// interface CustomerContentProps {
+//   transactions: {
+//     success: boolean;
+//     message: string;
+//     data: TransactionTable[];
+//     pagination: {
+//       currentPage: number;
+//       totalPages: number;
+//       hasNextPage: boolean;
+//     };
+//   };
+// }
 
-export default function CustomerContent({
-  transactions,
-}: CustomerContentProps) {
+export default function CustomerContent() {
+  const { transactions, fetchTransactions } = useTransactionsStore();
+  console.log("🚀 ~ CustomerContent ~ transactions:", !transactions);
+
+  useEffect(() => {
+    fetchTransactions();
+  }, [fetchTransactions]);
+
   const params = useSearchParams();
   const action = params?.get("action");
 
@@ -131,10 +138,12 @@ export default function CustomerContent({
             />
             <AddCustomerForm />
           </>
+        ) : !transactions ? (
+          <p>Loading...</p>
         ) : (
           <CustomerTable
-            datas={transactions.data}
-            pagination={transactions.pagination}
+            datas={transactions && transactions.data}
+            pagination={transactions && transactions.pagination}
           />
         )}
       </div>

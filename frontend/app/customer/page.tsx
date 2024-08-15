@@ -1,10 +1,9 @@
 import Heading from "@/components/Heading";
 import CustomerContent from "./_components/CustomerContent";
 import getTransactions from "@/actions/getTransactions";
+import { useTransactionsStore } from "@/hooks/useTransactionsStore";
 
 export default async function Customer() {
-  const transactions = await getTransactions();
-
   return (
     <div className="w-full space-y-6">
       <Heading
@@ -13,7 +12,7 @@ export default async function Customer() {
       />
       <hr />
 
-      <CustomerContent transactions={transactions} />
+      <CustomerContent />
     </div>
   );
 }
