@@ -1,6 +1,7 @@
 import Banner from "@/components/banner-actions/Banner";
 import BannerAction from "@/components/banner-actions/CustomerAction";
 import Heading from "@/components/Heading";
+import RightContentSide from "@/components/RightContentSide";
 import CustomerTable from "@/components/tables/CustomerTable";
 import { TransactionTable } from "@/types";
 
@@ -108,7 +109,10 @@ export default function Customer() {
           <CustomerTable datas={datas} />
         </div>
 
-        <div className="w-80 sticky top-5">Hallo world</div>
+        <RightContentSide
+          title="See analytics of the customer clearly"
+          subtitle="See analytics"
+        />
       </div>
     </div>
   );

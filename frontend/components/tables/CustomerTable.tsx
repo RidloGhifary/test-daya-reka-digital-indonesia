@@ -15,7 +15,7 @@ interface CustomerTableProps {
 
 export default function CustomerTable({ datas }: CustomerTableProps) {
   return (
-    <div className="relative overflow-x-auto">
+    <div className="relative space-y-8 overflow-x-auto">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500">
         <thead className="text-xs text-gray-700 uppercase rounded-md bg-gray-100">
           <tr>
@@ -74,6 +74,15 @@ export default function CustomerTable({ datas }: CustomerTableProps) {
           ))}
         </tbody>
       </table>
+
+      <div className="p-4 flex justify-between items-center w-full">
+        <p className="text-sm text-slate-700">Showing 10 data customers</p>
+        <div className="flex items-center gap-4 text-sm">
+          <Button className="bg-slate-700/10 text-slate-700">Back</Button>
+          <span className="text-slate-700">1</span>
+          <Button className="bg-slate-700/10 text-slate-700">Next</Button>
+        </div>
+      </div>
     </div>
   );
 }
