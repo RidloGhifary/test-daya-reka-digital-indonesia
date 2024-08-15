@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import Input from "../ui/Input";
 import Textarea from "../ui/Textarea";
@@ -8,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import toast from "react-hot-toast";
+import createCustomer from "@/actions/create-customer";
 
 const schema = yup
   .object({
@@ -19,7 +22,7 @@ const schema = yup
   })
   .required();
 
-type FormData = {
+export type CreateCustomerFormData = {
   firstname: string;
   lastname: string;
   phone_number: string;
@@ -37,7 +40,7 @@ export default function AddCustomerForm() {
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<CreateCustomerFormData>({
     resolver: yupResolver(schema),
     defaultValues: {
       firstname: "",
@@ -48,10 +51,19 @@ export default function AddCustomerForm() {
     },
   });
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: CreateCustomerFormData) => {
     setIsLoading(true);
-    reset();
-    console.log("🚀 ~ onSubmit ~ data:", data);
+
+    try {
+      await createCustomer(data);
+      reset();
+      toast.success("Success!");
+      router.push("/customer");
+    } catch (error) {
+      return toast.error("Ups, Something went wrong!");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
