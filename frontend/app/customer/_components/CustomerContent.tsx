@@ -6,17 +6,8 @@ import CustomerBannerAction from "@/components/banner/CustomerAction";
 import RightContentSide from "@/components/RightContentSide";
 import CustomerTable from "@/components/tables/CustomerTable";
 import AddCustomerForm from "@/components/form/AddCustomerForm";
-import { useEffect } from "react";
-import { useTransactionsStore } from "@/hooks/useTransactionsStore";
-import EmptyContent from "@/components/EmptyContent";
 
 export default function CustomerContent() {
-  const { transactions, fetchTransactions } = useTransactionsStore();
-
-  useEffect(() => {
-    fetchTransactions();
-  }, [fetchTransactions]);
-
   const params = useSearchParams();
   const action = params?.get("action");
 
@@ -41,13 +32,8 @@ export default function CustomerContent() {
             />
             <AddCustomerForm />
           </>
-        ) : !transactions ? (
-          <EmptyContent />
         ) : (
-          <CustomerTable
-            datas={transactions && transactions?.data}
-            pagination={transactions && transactions?.pagination}
-          />
+          <CustomerTable />
         )}
       </div>
 

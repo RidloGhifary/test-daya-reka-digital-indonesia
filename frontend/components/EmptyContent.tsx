@@ -1,9 +1,15 @@
 "use client";
 
-export default function EmptyContent() {
+interface EmptyContentProps {
+  title?: string;
+}
+
+export default function EmptyContent({
+  title = "This feature is under maintenance",
+}: EmptyContentProps) {
   return (
     <div className="w-full flex items-center justify-center rounded-md p-20 bg-primary/30 text-white">
-      <p>This feature is under maintainance</p>
+      <p>{title}</p>
     </div>
   );
 }

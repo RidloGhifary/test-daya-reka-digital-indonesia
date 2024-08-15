@@ -5,7 +5,7 @@ import { TransactionTable } from "@/types";
 interface Transaction {
   success: boolean;
   message: string;
-  data: TransactionTable[] | [];
+  data: TransactionTable[];
   pagination: {
     currentPage: number;
     totalPages: number;
@@ -28,10 +28,8 @@ export const useTransactionsStore = create<TransactionsState>((set) => ({
   fetchTransactions: async (order = "") => {
     try {
       const { data } = await axios.get(`${SERVER_URL}/transactions?${order}`);
-      set((state) => ({
-        transactions: data,
-        order,
-      }));
+      console.log("🚀 ~ fetchTransactions: ~ data:", data);
+      return set({ transactions: data });
     } catch (error) {
       console.error("Failed to fetch transactions:", error);
     }

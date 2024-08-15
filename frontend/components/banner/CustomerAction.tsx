@@ -16,8 +16,7 @@ export default function CustomerBannerAction() {
   const handleResetOrder = async () => {
     try {
       setOrder("");
-      await fetchTransactions();
-      router.refresh();
+      await fetchTransactions("");
     } catch (error) {
       toast.error("Ups, Something went wrong!");
     }
