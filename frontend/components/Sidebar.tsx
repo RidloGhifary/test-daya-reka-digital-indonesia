@@ -101,7 +101,6 @@ export default function Sidebar({ children }: SidebarProps) {
     <div className="h-screen flex">
       <div className="w-72 h-full bg-white border-r p-5 overflow-y-auto">
         <Logo />
-
         <div className="space-y-8 mt-6">
           {routes.map((section) => (
             <SidebarItem key={section.section} section={section} />
@@ -109,7 +108,7 @@ export default function Sidebar({ children }: SidebarProps) {
         </div>
       </div>
 
-      <main className="p-5 w-full">{children}</main>
+      <main className="p-5 w-full h-full overflow-y-auto">{children}</main>
     </div>
   );
 }

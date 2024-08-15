@@ -1,6 +1,91 @@
 import Banner from "@/components/banner-actions/Banner";
 import BannerAction from "@/components/banner-actions/CustomerAction";
 import Heading from "@/components/Heading";
+import CustomerTable from "@/components/tables/CustomerTable";
+import { TransactionTable } from "@/types";
+
+const datas: TransactionTable[] = [
+  {
+    customer: "Ridlo achmad ghifary",
+    level: "juragan",
+    product: "Nasi Goreng",
+    total_transaction: 25000,
+    total_quantity: 2,
+    last_transaction_date: new Date(),
+  },
+  {
+    customer: "Agus fatih",
+    level: "konglomerat",
+    product: "Mie ayam",
+    total_transaction: 25000,
+    total_quantity: 2,
+    last_transaction_date: new Date(),
+  },
+  {
+    customer: "Ridlo achmad ghifary",
+    level: "juragan",
+    product: "Nasi Goreng",
+    total_transaction: 25000,
+    total_quantity: 2,
+    last_transaction_date: new Date(),
+  },
+  {
+    customer: "Agus fatih",
+    level: "konglomerat",
+    product: "Mie ayam",
+    total_transaction: 25000,
+    total_quantity: 2,
+    last_transaction_date: new Date(),
+  },
+  {
+    customer: "Ridlo achmad ghifary",
+    level: "juragan",
+    product: "Nasi Goreng",
+    total_transaction: 25000,
+    total_quantity: 2,
+    last_transaction_date: new Date(),
+  },
+  {
+    customer: "Agus fatih",
+    level: "konglomerat",
+    product: "Mie ayam",
+    total_transaction: 25000,
+    total_quantity: 2,
+    last_transaction_date: new Date(),
+  },
+  {
+    customer: "Ridlo achmad ghifary",
+    level: "juragan",
+    product: "Nasi Goreng",
+    total_transaction: 25000,
+    total_quantity: 2,
+    last_transaction_date: new Date(),
+  },
+  {
+    customer: "Agus fatih",
+    level: "konglomerat",
+    product: "Mie ayam",
+    total_transaction: 25000,
+    total_quantity: 2,
+    last_transaction_date: new Date(),
+  },
+  {
+    customer: "Ridlo achmad ghifary",
+    level: "juragan",
+    product: "Nasi Goreng",
+    total_transaction: 25000,
+    total_quantity: 2,
+    last_transaction_date: new Date(),
+  },
+  {
+    customer: "Agus fatih",
+    level: "konglomerat",
+    product: "Mie ayam",
+    total_transaction: 25000,
+    total_quantity: 2,
+    last_transaction_date: new Date(),
+  },
+];
 
 export default function Customer() {
   return (
@@ -12,16 +97,18 @@ export default function Customer() {
       <hr />
 
       <div className="w-full gap-3 flex">
-        <div className="w-full">
+        <div className="w-full space-y-4">
           <Banner
             title="Dashboard"
             subtitle="On this menu you will be able to create, edit and also delete"
             secondarySubtitle="the customer. Also you can manage it easily">
             <BannerAction />
           </Banner>
+
+          <CustomerTable datas={datas} />
         </div>
 
-        <div className="w-80">Hallo world</div>
+        <div className="w-80 sticky top-5">Hallo world</div>
       </div>
     </div>
   );
