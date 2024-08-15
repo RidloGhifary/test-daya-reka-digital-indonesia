@@ -1,7 +1,7 @@
 "use client";
 
 interface BannerProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   title: string;
   subtitle: string;
   secondarySubtitle?: string;

@@ -1,13 +1,20 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { IoPrintOutline } from "react-icons/io5";
 import { LuRefreshCcw } from "react-icons/lu";
 import { FiPlus, FiSearch } from "react-icons/fi";
 import { CiFilter } from "react-icons/ci";
 import Button from "../ui/Button";
 
-export default function BannerAction() {
+export default function CustomerBannerAction() {
+  const router = useRouter();
+
   return (
     <div className="w-full flex items-center justify-start gap-5 overflow-x-auto">
-      <Button className="flex items-center gap-3 text-white bg-white/30 w-fit text-sm">
+      <Button
+        onClick={() => router.push("/customer?action=add-customer")}
+        className="flex items-center gap-3 text-white bg-white/30 w-fit text-sm">
         <FiPlus className="w-5 h-5" />
         <span>Add Customer</span>
       </Button>
