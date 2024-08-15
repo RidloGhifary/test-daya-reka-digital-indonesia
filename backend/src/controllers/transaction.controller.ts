@@ -4,7 +4,7 @@ import { Product } from "../types";
 
 export const getAllTransactions = async (req: Request, res: Response) => {
   try {
-    const { transaction, customer_name, product, page = 1 } = req.query;
+    const { transaction, customer_name, product, page = 1, search } = req.query;
 
     const limit = 10;
     const offset = (Number(page) - 1) * limit;
@@ -17,6 +17,13 @@ export const getAllTransactions = async (req: Request, res: Response) => {
       orderBy = `customer ${customer_name === "desc" ? "DESC" : "ASC"}`;
     } else if (product) {
       orderBy = `product ${product === "desc" ? "DESC" : "ASC"}`;
+    }
+
+    // TODO: Having search data with customer_name through search query
+    let whereClause = `c.is_deleted IS NULL`;
+
+    if (search) {
+      whereClause += ` AND (c.firstname LIKE '%${search}%' OR c.lastname LIKE '%${search}%')`;
     }
 
     // TODO: Get the data
@@ -36,7 +43,7 @@ export const getAllTransactions = async (req: Request, res: Response) => {
       JOIN 
         Product p ON t.product_id = p.id
       WHERE 
-        c.is_deleted IS NULL
+        ${whereClause}
       GROUP BY 
         t.customer_id, t.product_id
       ORDER BY 
@@ -57,7 +64,7 @@ export const getAllTransactions = async (req: Request, res: Response) => {
       JOIN 
         Customer c ON t.customer_id = c.id
       WHERE 
-        c.is_deleted IS NULL
+        ${whereClause}
       GROUP BY 
         t.customer_id, t.product_id) AS count_query;
     `;
@@ -85,6 +92,52 @@ export const getAllTransactions = async (req: Request, res: Response) => {
           },
         });
       });
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Something went wrong" });
+  }
+};
+
+export const getTransactionByCustomerName = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { customer_name } = req.query;
+    if (!customer_name) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Customer name is required" });
+    }
+
+    const sql = `
+      SELECT 
+        c.id AS id,
+        CONCAT(c.firstname, ' ', c.lastname) AS customer,
+        p.name AS product,
+        c.level,
+        SUM(t.price * t.quantity) AS total_transaction,
+        SUM(t.quantity) AS total_quantity,
+        MAX(t.created_at) AS last_transaction_date
+      FROM 
+        Transaction t
+      JOIN 
+        Customer c ON t.customer_id = c.id
+      JOIN 
+        Product p ON t.product_id = p.id
+      WHERE 
+        c.is_deleted IS NULL
+        AND CONCAT(c.firstname, ' ', c.lastname) LIKE ?
+      GROUP BY 
+        t.customer_id, t.product_id;
+    `;
+    const values = [`%${customer_name}%`];
+
+    connection.query(sql, values, (error, results) => {
+      if (error) throw error;
+      res
+        .status(200)
+        .json({ success: true, message: "Success", data: results });
     });
   } catch (error) {
     res.status(500).json({ success: false, message: "Something went wrong" });
