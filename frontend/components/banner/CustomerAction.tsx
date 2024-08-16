@@ -62,8 +62,8 @@ export default function CustomerBannerAction() {
       <Button
         onClick={() => router.push("/customer?action=add-customer")}
         className="flex items-center gap-3 text-white bg-white/30 w-fit text-sm">
-        <FiPlus className="w-5 h-5" />
-        <span>Add Customer</span>
+        <FiPlus className="lg:w-5 lg:h-5 w-5 h-6" />
+        <span className="hidden lg:block">Add Customer</span>
       </Button>
 
       <form onSubmit={handleSubmit(onSubmit)}>

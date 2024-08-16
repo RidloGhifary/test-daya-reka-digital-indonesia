@@ -28,8 +28,8 @@ export default function SidebarItem({ section }: SidebarItemProps) {
           className={`flex items-center w-full gap-4 hover:bg-gray-100 transition cursor-pointer rounded-md p-2 ${
             item.isActive ? "text-primary" : "text-gray-500"
           }`}>
-          <item.icon className="w-5 h-5" />
-          <p>{item.name}</p>
+          <item.icon className="lg:w-5 lg:h-5 md:w-7 md:h-7 w-5 h-5" />
+          <p className="block md:hidden lg:block">{item.name}</p>
         </div>
       ))}
     </div>
